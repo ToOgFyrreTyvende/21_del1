@@ -10,7 +10,7 @@ public class SQLGenerator {
     static String[] createStatements = {
             "drop table if exists 21_d1_users;",
             "CREATE TABLE 21_d1_users (userID INT NOT NULL PRIMARY KEY,userName VARCHAR(20) UNIQUE not null,ini VARCHAR(4), " +
-                    "cpr VARCHAR(11) NOT NULL, password VARCHAR(128) NOT NULL, roles varchar(64) not null" +
+                    "cpr VARCHAR(11) NOT NULL, password VARCHAR(128) NOT NULL, roles varchar(64) not null," +
                     "CHECK (userID>=11 AND userID <=99)," +
                     "CHECK (LENGTH(ini) >= 2)," +
                     "CHECK (LENGTH(userName) >= 2 AND LENGTH(userName) <= 20));"
