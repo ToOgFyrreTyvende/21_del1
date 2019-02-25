@@ -5,13 +5,13 @@ import java.util.List;
 
 import dal.IUserDAO;
 import dal.IUserDAO.DALException;
-import dal.UserDAODisc;
+import dal.UserDAODisk;
 import dto.UserDTO;
 
 public class DBTester {
 	//TODO refactor as JUnit test???
 	public static void main(String[] args) {
-		IUserDAO iDAO = new UserDAODisc();
+		IUserDAO iDAO = new UserDAODisk();
 		UserDTO newUser = new UserDTO();
 		printUsers(iDAO);
 		//TODO test new fields...

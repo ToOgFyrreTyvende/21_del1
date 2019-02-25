@@ -4,10 +4,10 @@ import dto.UserDTO;
 
 import java.util.List;
 
-public class UserDAODisc implements IUserDAO {
+public class UserDAODisk implements IUserDAO {
     //TODO: implement this shit
 
-    public UserDAODisc() {
+    public UserDAODisk() {
     }
 
     @Override
