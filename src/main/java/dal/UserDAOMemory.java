@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDAOMemory implements IUserDAO {
+    //TODO: implement this shit
+
     List<UserDTO> users;
 
     public UserDAOMemory() {

@@ -5,6 +5,7 @@ import dto.UserDTO;
 import java.util.List;
 
 public class UserDAODisc implements IUserDAO {
+    //TODO: implement this shit
 
     public UserDAODisc() {
     }

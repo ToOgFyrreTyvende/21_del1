@@ -9,6 +9,7 @@ import java.sql.Statement;
 import java.util.List;
 
 public class UserDAOMySQL implements IUserDAO {
+    //TODO: implement this shit
     public Connection createConnection() {
         try{
             Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
@@ -26,7 +27,6 @@ public class UserDAOMySQL implements IUserDAO {
     public UserDTO getUser(int userId) throws DALException {
         try{
             Connection c = createConnection();
-            //.....
             c.close();
         } catch (SQLException e) {
             throw new DALException(e.getMessage());
