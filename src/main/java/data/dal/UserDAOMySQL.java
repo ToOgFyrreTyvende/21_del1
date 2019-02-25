@@ -2,30 +2,20 @@ package data.dal;
 
 import data.dto.UserDTO;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.List;
+
+import static utils.SQLGenerator.createConnection;
 
 public class UserDAOMySQL implements IUserDAO {
     //TODO: implement this shit
-    public Connection createConnection() {
-        try{
-            Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
-            return DriverManager.getConnection(
-                    "jdbc:mysql://" + System.getenv("DB_URL") + "/" + System.getenv("DB_USER"),
-                    System.getenv("DB_USER"),System.getenv("DB_PASS"));
-        }
-        catch(Exception e){
-            System.out.println(e);
-            return null;
-        }
-    }
 
     @Override
     public UserDTO getUser(int userId) throws DALException {
         try{
+            UserDTO user = new UserDTO();
             Connection c = createConnection();
+            ResultSet rs = c.;
             c.close();
         } catch (SQLException e) {
             throw new DALException(e.getMessage());
