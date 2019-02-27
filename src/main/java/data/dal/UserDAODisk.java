@@ -1,14 +1,12 @@
-package dal;
+package data.dal;
 
-import dto.UserDTO;
+import data.dto.UserDTO;
+import data.dto.UserDTO;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserDAODisk implements IUserDAO {
-
-    List<UserDTO> user_list = new ArrayList<>();
-
 
     public UserDAODisk() throws IOException {
     }
@@ -17,22 +15,93 @@ public class UserDAODisk implements IUserDAO {
 
     }
 
+// ---- GET USER -------------------------------------------------------------------------------------------------------
     @Override
     public UserDTO getUser(int userId) throws DALException {
+
+        List<UserDTO> user_list = new ArrayList<>();
+
+        try {
+
+            FileInputStream fis = new FileInputStream("src\\main\\resources\\disk.txt");
+
+            try {
+                ObjectInputStream ois = new ObjectInputStream(fis);
+                user_list = (ArrayList) ois.readObject();
+                ois.close();
+            } catch (EOFException e) {
+                user_list = new ArrayList<>();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+
+            fis.close();
+
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+
+        for (UserDTO user : user_list) {
+            if (user.getUserId() == userId) {
+                return user;
+            }
+        }
         return null;
     }
 
+// ---- GET USER LIST --------------------------------------------------------------------------------------------------
     @Override
     public List<UserDTO> getUserList() throws DALException {
-        return null;
+
+        List<UserDTO> user_list = new ArrayList<>();
+
+        try{
+
+            FileInputStream fis = new FileInputStream("src\\main\\resources\\disk.txt");
+
+            try {
+                ObjectInputStream ois = new ObjectInputStream(fis);
+                user_list = (ArrayList) ois.readObject();
+                ois.close();
+            } catch (EOFException e) {
+                user_list = new ArrayList<>();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+
+            fis.close();
+
+        }catch (IOException ioe){
+            ioe.printStackTrace();
+        }
+
+        return user_list;
     }
 
+
+// ---- CREATE USER ----------------------------------------------------------------------------------------------------
     @Override
     public void createUser(UserDTO user) throws DALException {
 
-        user_list.add(new UserDTO());
+        List<UserDTO> user_list = new ArrayList<>();
 
         try{
+
+            FileInputStream fis = new FileInputStream("src\\main\\resources\\disk.txt");
+
+            try {
+                ObjectInputStream ois = new ObjectInputStream(fis);
+                user_list = (ArrayList) ois.readObject();
+                ois.close();
+            } catch (EOFException e) {
+                user_list = new ArrayList<>();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+
+            fis.close();
+
+            user_list.add(user);
 
             FileOutputStream fos = new FileOutputStream("src\\main\\resources\\disk.txt");
             ObjectOutputStream oos = new ObjectOutputStream(fos);
@@ -49,13 +118,52 @@ public class UserDAODisk implements IUserDAO {
 
     }
 
+// ---- UPDATE USER ----------------------------------------------------------------------------------------------------
     @Override
     public void updateUser(UserDTO user) throws DALException {
 
     }
 
+// ---- DELETE USER ----------------------------------------------------------------------------------------------------
     @Override
     public void deleteUser(int userId) throws DALException {
+        List<UserDTO> user_list = new ArrayList<>();
 
+        try {
+
+            FileInputStream fis = new FileInputStream("src\\main\\resources\\disk.txt");
+
+            try {
+                ObjectInputStream ois = new ObjectInputStream(fis);
+                user_list = (ArrayList) ois.readObject();
+                ois.close();
+            } catch (EOFException e) {
+                user_list = new ArrayList<>();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+
+            fis.close();
+
+            int i = 0;
+            for (UserDTO user : user_list) {
+                if (user.getUserId() == userId){
+                    user_list.remove(i);
+                }
+                i++;
+
+            }
+
+            FileOutputStream fos = new FileOutputStream("src\\main\\resources\\disk.txt");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+            oos.writeObject(user_list);
+
+            oos.close();
+            fos.close();
+
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
     }
 }
