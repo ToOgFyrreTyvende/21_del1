@@ -7,7 +7,7 @@ import data.dto.UserDTO;
 
 public class DBTester {
 	//TODO refactor as JUnit test???
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		IUserDAO iDAO = new UserDAODisk();
 		UserDTO newUser = new UserDTO();
 		printUsers(iDAO);
@@ -69,6 +69,6 @@ public class DBTester {
 		} catch (DALException e) {
 			e.printStackTrace();
 		}
-	}
+	}*/
 
 }
