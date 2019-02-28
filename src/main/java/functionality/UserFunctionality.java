@@ -1,0 +1,62 @@
+package functionality;
+
+import data.dal.IUserDAO;
+import data.dto.UserDTO;
+
+import java.util.List;
+import data.dal.IUserDAO.*;
+import data.dto.UserDTO;
+
+
+public class UserFunctionality implements IUserFunctionality {
+    IUserDAO userDAO;
+
+    public UserFunctionality(IUserDAO userDAO) {
+        this.userDAO = userDAO;
+    }
+
+    @Override
+    public UserDTO getUser(int userId) throws UserInputException {
+        if (userId >= 11 && userId <= 99){
+            try {
+                return userDAO.getUser(userId);
+            } catch (DALException e) {
+                throw new UserInputException(e.getMessage());
+            }
+        }else {
+            throw new UserInputException("Ugyldigt bruger ID. Indtast venligst et bruger ID mellem 11 og 99 (inklusivt)");
+        }
+    }
+
+    @Override
+    public List<UserDTO> getUserList() throws DALException {
+        return userDAO.getUserList();
+    }
+
+    @Override
+    public void createUser(UserDTO user) throws UserInputException {
+        try {
+            userDAO.createUser(user);
+        } catch (DALException e) {
+            throw new UserInputException("Fejl, kan være bruger oplysninger. " + e.getMessage());
+        }
+    }
+
+    @Override
+    public void updateUser(UserDTO user) throws UserInputException {
+        try {
+            userDAO.updateUser(user);
+        } catch (DALException e) {
+            throw new UserInputException("Fejl, kan være bruger oplysninger. " + e.getMessage());
+        }
+    }
+
+    @Override
+    public void deleteUser(int userId) throws UserInputException {
+        try {
+            userDAO.deleteUser(userId);
+        } catch (DALException e) {
+            throw new UserInputException("Fejl, kan være bruger ID. " + e.getMessage());
+        }
+    }
+}
