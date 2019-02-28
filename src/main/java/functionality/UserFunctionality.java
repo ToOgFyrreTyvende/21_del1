@@ -38,7 +38,7 @@ public class UserFunctionality implements IUserFunctionality {
         try {
             userDAO.createUser(user);
         } catch (DALException e) {
-            throw new UserInputException("Fejl, kan være bruger oplydninger. " + e.getMessage());
+            throw new UserInputException("Fejl, kan være bruger oplysninger. " + e.getMessage());
         }
     }
 
@@ -47,7 +47,7 @@ public class UserFunctionality implements IUserFunctionality {
         try {
             userDAO.updateUser(user);
         } catch (DALException e) {
-            throw new UserInputException("Fejl, kan være bruger oplydninger. " + e.getMessage());
+            throw new UserInputException("Fejl, kan være bruger oplysninger. " + e.getMessage());
         }
     }
 
