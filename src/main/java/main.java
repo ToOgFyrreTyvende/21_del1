@@ -1,3 +1,6 @@
+import functionality.IUserFunctionality;
+import functionality.UserFunctionality;
+import ui.TUI;
 import data.dal.*;
 import data.dto.UserDTO;
 
@@ -7,21 +10,12 @@ import java.sql.SQLOutput;
 public class main {
     public static void main(String[] args) throws IOException, IUserDAO.DALException {
 
-        UserDTO user = new UserDTO();
-        IUserDAO dao = new UserDAODisk();
+        //utils.SQLTools.generateTable();
+        //IUserDAO daoDisk = new UserDAODisk();
+        IUserDAO daoMySQL = new UserDAOMySQL();
+        IUserFunctionality userFunc = new UserFunctionality(daoMySQL);
+        TUI ui = new TUI(userFunc);
 
-// ---------------------------------------------------------------------------------------------------------------------
-
-        user.setUserId(1);
-        user.setUserName("Nicklas");
-        user.setIni("NRD");
-
-        //dao.createUser(user);
-
-
-        //dao.deleteUser(1);
-        dao.updateUser(user);
-        System.out.println(dao.getUserList());
-
+        ui.showMenu();
     }
 }
