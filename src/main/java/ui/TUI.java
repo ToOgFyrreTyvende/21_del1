@@ -1,6 +1,5 @@
 package ui;
 
-import data.dal.IUserDAO;
 import data.dto.UserDTO;
 import functionality.IUserFunctionality;
 
@@ -60,9 +59,9 @@ public class TUI {
                                 System.out.println(userID1 + " er desværre optaget, prøv et andet!");
                             }
                         } catch (IUserFunctionality.UserInputException e){
-                            e.printStackTrace();
+                            System.out.println(e.getMessage() + "\n");
                         } catch (InputMismatchException e){
-                            System.out.println("Indtast venligst userID i form af et tal!");
+                            System.out.println("Indtast venligst userID i form af et tal!\n");
                         }
                     }
                     // Set user1 username
@@ -99,16 +98,15 @@ public class TUI {
                         func.createUser(user1);
                         System.out.println("Bruger succesfuldt oprettet!\n");
                     } catch (IUserFunctionality.UserInputException e){
-                        e.printStackTrace();
-                        System.out.println();
+                        System.out.println(e.getMessage() + "\n");
                     }
                     break;
                 case 2:
                     System.out.println("|-- Vis brugere --|");
                     try{
                         System.out.println(func.getUserList());
-                    } catch (IUserDAO.DALException e){
-                        e.printStackTrace();
+                    } catch (Exception e){
+                        System.out.println(e.getMessage() + "\n");
                     }
                     break;
                 case 3:
@@ -129,9 +127,9 @@ public class TUI {
                                         + userID3 + "\nPrøv igen!");
                             }
                         } catch (IUserFunctionality.UserInputException e){
-                            e.printStackTrace();
+                            System.out.println(e.getMessage() + "\n");
                         } catch (InputMismatchException e){
-                            System.out.println("Indtast venligst userID i form af et tal!");
+                            System.out.println("Indtast venligst userID i form af et tal!\n");
                         }
                     }
 
@@ -171,8 +169,7 @@ public class TUI {
                         func.updateUser(user3);
                         System.out.println("Bruger succesfuldt opdateret!\n");
                     } catch (IUserFunctionality.UserInputException e){
-                        e.printStackTrace();
-                        System.out.println();
+                        System.out.println(e.getMessage() + "\n");
                     }
                     break;
                 case 4:
@@ -201,9 +198,9 @@ public class TUI {
                                 }
                             }
                         } catch (IUserFunctionality.UserInputException e){
-                            e.printStackTrace();
+                            System.out.println(e.getMessage() + "\n");
                         } catch (InputMismatchException e){
-                            System.out.println("Indtast venligst userID i form af et tal!");
+                            System.out.println("Indtast venligst userID i form af et tal!\n");
                         }
                     }
                     // -------------------- Testing -------------------- //
