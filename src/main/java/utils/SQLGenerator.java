@@ -13,7 +13,7 @@ public class SQLGenerator {
                     "cpr VARCHAR(11) NOT NULL, password VARCHAR(128) NOT NULL, roles varchar(64) not null," +
                     "CHECK (userID>=11 AND userID <=99)," +
                     "CHECK (LENGTH(ini) >= 2 AND LENGTH(ini) <= 4)," +
-                    "CHECH (LENGTH(cpr) = 11)," +
+                    "CHECk (LENGTH(cpr) = 11)," +
                     "CHECK (LENGTH(userName) >= 2 AND LENGTH(userName) <= 20)," +
                     "CHECK (roles = 'Admin' OR roles = 'Pharmacist' OR roles = 'Foreman' OR roles = 'Operator'));"
     };
