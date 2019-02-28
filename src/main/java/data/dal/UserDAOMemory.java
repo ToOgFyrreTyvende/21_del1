@@ -9,7 +9,6 @@ public class UserDAOMemory implements IUserDAO {
     //TODO: implement this shit
 
     List<UserDTO> users;
-    UserDTO user = new UserDTO();
 
     public UserDAOMemory() {
         users = new ArrayList<>();
@@ -17,7 +16,12 @@ public class UserDAOMemory implements IUserDAO {
 
     @Override
     public UserDTO getUser(int userId) throws DALException {
-        return user;
+        for (UserDTO user : users){
+            if (user.getUserId() == userId){
+                return user;
+            }
+        }
+        return null;
     }
 
     @Override
@@ -45,6 +49,12 @@ public class UserDAOMemory implements IUserDAO {
 
     @Override
     public void deleteUser(int userId) throws DALException {
-        users.remove(userId);
+        int i = 0;
+        for (UserDTO user : users){
+            if (user.getUserId() == userId){
+                users.remove(i);
+            }
+            i++;
+        }
     }
 }
