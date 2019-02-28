@@ -13,6 +13,7 @@ class UserFunctionalityTest {
     private static String dbTestName = "21_d1_users_test";
     private IUserFunctionality func;
     private UserDTO testUser1;
+    private UserDTO testUser2;
 
     @BeforeAll
     static void setUpTestTable() {
@@ -27,12 +28,20 @@ class UserFunctionalityTest {
         func = new UserFunctionality(dao);
         // testUser1 values set:
         testUser1 = new UserDTO();
-        testUser1.setUserId(42);
-        testUser1.setUserName("testUser");
-        testUser1.setIni("test");
-        testUser1.setCpr("123456-7890");
-        testUser1.setPassword("testPass");
-        testUser1.addRole("Operator");
+        do {
+            testUser1.setUserId(42);
+            testUser1.setUserName("testUser");
+            testUser1.setIni("test");
+            testUser1.setCpr("123456-7890");
+            testUser1.setPassword("testPass");
+            testUser1.addRole("Operator");
+        } while (false);
+        testUser2 = new UserDTO();
+        do {
+            testUser2.setUserId(2);
+            testUser2.setUserName("derp");
+            testUser2.setIni("derp");
+        } while (false);
     }
 
     @Test
@@ -57,5 +66,14 @@ class UserFunctionalityTest {
         func.deleteUser(testUser1.getUserId());
         // Check user has been correctly deleted
         assertEquals("[]", func.getUserList().toString());
+    }
+
+    @Test
+    void exceptionTesting() {
+        IUserFunctionality.UserInputException createThrown = assertThrows(IUserFunctionality.UserInputException.class,
+                () -> func.createUser(testUser2),
+                "Should throw a nice custom error... But i guess not");
+
+        assertTrue(createThrown.getMessage().contains("Fejl"));
     }
 }
