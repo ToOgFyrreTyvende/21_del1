@@ -32,7 +32,11 @@ public class UserDAOMySQL implements IUserDAO {
         } catch (SQLException e) {
             throw new DALException(e.getMessage());
         }
-        return user;
+        if (user.getUserId() == 0){
+            throw new DALException("Kunne ikke finde brugeren");
+        } else {
+            return user;
+        }
     }
 
     @Override
