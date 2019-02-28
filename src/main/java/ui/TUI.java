@@ -1,18 +1,20 @@
 package ui;
 
+import functionality.IUserFunctionality;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class TUI {
     // TODO Remove comment when functionality layer is made :)
-    //private IFunctionality func;
+    private IUserFunctionality func;
     private Scanner scan;
     private boolean keepGoing = true;
     //private boolean validUserChoice = true;
 
-    public TUI(/*IFunctionality func*/){
+    public TUI(IUserFunctionality func){
         // TODO Remove comment when func layer is made :)
-        //this.func = func;
+        this.func = func;
     }
 
     public void showMenu(){
@@ -68,6 +70,7 @@ public class TUI {
                     System.out.println("cpr:\t\t" + cpr1);
                     System.out.println("pass:\t\t" + password1);
                     // ---------------------- End ---------------------- //
+
                     // TODO Run createUser method here when created
                     // TODO Confirm/report success/failure
                     break;
