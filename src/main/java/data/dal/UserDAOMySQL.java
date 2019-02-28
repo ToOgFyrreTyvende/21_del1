@@ -5,7 +5,7 @@ import data.dto.UserDTO;
 import java.sql.*;
 import java.util.List;
 
-import static utils.SQLGenerator.createConnection;
+import static utils.SQLTools.createConnection;
 
 public class UserDAOMySQL implements IUserDAO {
     //TODO: implement this shit

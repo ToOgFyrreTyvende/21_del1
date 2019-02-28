@@ -10,7 +10,7 @@ import java.sql.SQLOutput;
 public class main {
     public static void main(String[] args) throws IOException, IUserDAO.DALException {
 
-        //utils.SQLGenerator.generateTable();
+        //utils.SQLTools.generateTable();
         //IUserDAO daoDisk = new UserDAODisk();
         IUserDAO daoMySQL = new UserDAOMySQL();
         IUserFunctionality userFunc = new UserFunctionality(daoMySQL);
