@@ -11,15 +11,16 @@ public class main {
         IUserDAO dao = new UserDAODisk();
 
 // ---------------------------------------------------------------------------------------------------------------------
-/*
-        user.setUserId(0);
-        user.setUserName("ADMIN");
-        user.setIni("ADM");
 
-        dao.createUser(user);
-*/
+        user.setUserId(1);
+        user.setUserName("Nicklas");
+        user.setIni("NRD");
+
+        //dao.createUser(user);
+
 
         //dao.deleteUser(1);
+        dao.updateUser(user);
         System.out.println(dao.getUserList());
 
     }
