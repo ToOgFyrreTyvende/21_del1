@@ -20,13 +20,13 @@ public class TUI {
             scan = new Scanner(System.in);
             int userChoice;
 
-            System.out.println("---------------");
+            System.out.println("-------------------");
             System.out.println("1. Opret bruger");
             System.out.println("2. Vis brugere");
             System.out.println("3. Opdater bruger");
             System.out.println("4. Slet brugere");
             System.out.println("0. Afslut program");
-            System.out.println("---------------");
+            System.out.println("-------------------");
             System.out.println();
             System.out.println("Indtast valg: ");
 
@@ -46,20 +46,18 @@ public class TUI {
                     UserDTO user1 = new UserDTO();
                     System.out.println("|-- Opret bruger -- |");
                     System.out.println("Indtast ønskede userID:");
-                    int userID1;
+                    int userID1 = -1;
 
                     // Check if userID is taken or invalid input
                     while (true){
                         try{
                             userID1 = scan.nextInt();
-                            if (func.getUser(userID1) == null){
-                                user1.setUserId(userID1);
-                                break;
-                            } else {
-                                System.out.println(userID1 + " er desværre optaget, prøv et andet!");
-                            }
+                            UserDTO testTaken = func.getUser(userID1);
+                            System.out.println(userID1 + " er desværre optaget, prøv et andet!");
+
                         } catch (IUserFunctionality.UserInputException e){
-                            System.out.println(e.getMessage() + "\n");
+                            user1.setUserId(userID1);
+                            break;
                         } catch (InputMismatchException e){
                             System.out.println("Indtast venligst userID i form af et tal!\n");
                         }
@@ -80,6 +78,8 @@ public class TUI {
                     System.out.println("Indtast ønskede password:");
                     String password1 = scan.next();
                     user1.setPassword(password1);
+                    // set user1 role
+                    user1.addRole("Operator");
                     System.out.println();
 
                     // -------------------- Testing -------------------- //
@@ -110,15 +110,15 @@ public class TUI {
                     }
                     break;
                 case 3:
-                    // Create new user
+                    // Create new UserDTO
                     UserDTO user3 = new UserDTO();
                     System.out.println("|-- Opdater brugere --|");
                     System.out.println("Indtast userID af ønskede bruger:");
                     int userID3;
 
                     while (true){
+                        userID3 = scan.nextInt();
                         try{
-                            userID3 = scan.nextInt();
                             if (func.getUser(userID3) != null){
                                 user3.setUserId(userID3);
                                 break;
