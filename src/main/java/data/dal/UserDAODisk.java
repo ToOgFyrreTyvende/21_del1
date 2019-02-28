@@ -120,8 +120,45 @@ public class UserDAODisk implements IUserDAO {
 
 // ---- UPDATE USER ----------------------------------------------------------------------------------------------------
     @Override
-    public void updateUser(UserDTO user) throws DALException {
+    public void updateUser(UserDTO inputUser) throws DALException {
+        List<UserDTO> user_list = new ArrayList<>();
 
+        try {
+
+            FileInputStream fis = new FileInputStream("src\\main\\resources\\disk.txt");
+
+            try {
+                ObjectInputStream ois = new ObjectInputStream(fis);
+                user_list = (ArrayList) ois.readObject();
+                ois.close();
+            } catch (EOFException e) {
+                user_list = new ArrayList<>();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+
+            fis.close();
+
+            int inputUserId = inputUser.getUserId();
+            int i = 0;
+            for (UserDTO userInList : user_list) {
+                if (userInList.getUserId() == inputUserId){
+                    user_list.set(i,inputUser);
+                }
+                i++;
+            }
+
+            FileOutputStream fos = new FileOutputStream("src\\main\\resources\\disk.txt");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+            oos.writeObject(user_list);
+
+            oos.close();
+            fos.close();
+
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
     }
 
 // ---- DELETE USER ----------------------------------------------------------------------------------------------------
@@ -151,7 +188,6 @@ public class UserDAODisk implements IUserDAO {
                     user_list.remove(i);
                 }
                 i++;
-
             }
 
             FileOutputStream fos = new FileOutputStream("src\\main\\resources\\disk.txt");
