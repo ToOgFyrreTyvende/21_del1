@@ -35,10 +35,14 @@ public class UserFunctionality implements IUserFunctionality {
 
     @Override
     public void createUser(UserDTO user) throws UserInputException {
-        try {
-            userDAO.createUser(user);
-        } catch (DALException e) {
-            throw new UserInputException("Fejl, kan være bruger oplysninger. " + e.getMessage());
+        if (user.getUserId() >= 11 && user.getUserId() <= 99){
+            try {
+                userDAO.createUser(user);
+            } catch (DALException e) {
+                throw new UserInputException("Fejl, kan være bruger oplysninger. " + e.getMessage());
+            }
+        } else {
+            throw new UserInputException("Fejl, kan være bruger oplysninger. ");
         }
     }
 
