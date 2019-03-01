@@ -9,7 +9,15 @@ import java.util.List;
 import static utils.SQLTools.createConnection;
 
 public class UserDAOMySQL implements IUserDAO {
-    //TODO: implement this shit
+    private final String DB_NAME;
+
+    public UserDAOMySQL() {
+        DB_NAME = "21_d1_users";
+    }
+
+    public UserDAOMySQL(String db_name) {
+        DB_NAME = db_name;
+    }
 
     @Override
     public UserDTO getUser(int userId) throws DALException {
@@ -17,7 +25,7 @@ public class UserDAOMySQL implements IUserDAO {
         UserDTO user = new UserDTO();
         try{
             Statement stmt = c.createStatement();
-            ResultSet rs = stmt.executeQuery("select * from 21_d1_users where userid =" + userId);
+            ResultSet rs = stmt.executeQuery("select * from "+DB_NAME+" where userid =" + userId);
             if(rs.first()){
                 user.setUserId(userId);
                 user.setUserName(rs.getString(2));
@@ -32,7 +40,11 @@ public class UserDAOMySQL implements IUserDAO {
         } catch (SQLException e) {
             throw new DALException(e.getMessage());
         }
-        return user;
+        if (user.getUserId() == 0){
+            throw new DALException("Kunne ikke finde brugeren");
+        } else {
+            return user;
+        }
     }
 
     @Override
@@ -41,7 +53,7 @@ public class UserDAOMySQL implements IUserDAO {
         List<UserDTO> userList = new ArrayList<>();
         try{
             Statement stmt = c.createStatement();
-            ResultSet rs = stmt.executeQuery("select userId from 21_d1_users");
+            ResultSet rs = stmt.executeQuery("select userId from "+DB_NAME);
             while (rs.next()) {
                 userList.add(getUser(rs.getInt(1)));
             }
@@ -61,7 +73,7 @@ public class UserDAOMySQL implements IUserDAO {
         int rs = 0;
         try {
             Statement stmt = c.createStatement();
-            rs = stmt.executeUpdate("insert into 21_d1_users values( '" + user.getUserId() + "','" + user.getUserName() + "','" + user.getIni() + "','" + user.getCpr() + "','" + user.getPassword() + "','" + user.getRoles().get(0) + "')");
+            rs = stmt.executeUpdate("insert into "+DB_NAME+" values( '" + user.getUserId() + "','" + user.getUserName() + "','" + user.getIni() + "','" + user.getCpr() + "','" + user.getPassword() + "','" + user.getRoles().get(0) + "')");
             c.close();
         } catch (NullPointerException N){
             throw new NullPointerException("Looks like it went bad, nullPointExeption");
@@ -80,7 +92,7 @@ public class UserDAOMySQL implements IUserDAO {
         int rs = 0;
         try {
             Statement stmt = c.createStatement();
-            rs = stmt.executeUpdate("update 21_d1_users set userName = '"+user.getUserName()+"', ini = '"+user.getIni()+"', cpr = '" + user.getCpr() + "', password = '" + user.getPassword() + "', roles = '"+user.getRoles().get(0)+"' where userId = "+user.getUserId());
+            rs = stmt.executeUpdate("update "+DB_NAME+" set userName = '"+user.getUserName()+"', ini = '"+user.getIni()+"', cpr = '" + user.getCpr() + "', password = '" + user.getPassword() + "', roles = '"+user.getRoles().get(0)+"' where userId = "+user.getUserId());
             c.close();
         }catch (NullPointerException N){
             throw new NullPointerException("Looks like it went bad, nullPointExeption");
@@ -99,7 +111,7 @@ public class UserDAOMySQL implements IUserDAO {
         int rs = 0;
         try{
             Statement stmt = c.createStatement();
-            rs = stmt.executeUpdate("delete from 21_d1_users where userId = " + userId);
+            rs = stmt.executeUpdate("delete from "+DB_NAME+" where userId = " + userId);
             c.close();
         } catch (NullPointerException N){
             throw new NullPointerException("Looks like it went bad, nullPointExeption");
